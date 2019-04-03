@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1", 
     "dev": "concurrently \"live-server public\" \"babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch\"", 
-    "prototype": "concurrently \"live-server public\" \"babel src/playground/es6-let-const.js --out-file=public/scripts/app.js --presets=env,react --watch\""
+    "prototype": "concurrently \"live-server public\" \"babel src/playground/prototype.js --out-file=public/scripts/app.js --presets=env,react --watch\""
   },
   "repository": {
     "type": "git",
