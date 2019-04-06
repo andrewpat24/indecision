@@ -19,9 +19,10 @@ var App = function (_React$Component) {
         _this.handleClearOptions = _this.handleClearOptions.bind(_this);
         _this.handlePickAction = _this.handlePickAction.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
+        _this.handleRemoveOption = _this.handleRemoveOption.bind(_this);
 
         _this.state = {
-            options: []
+            options: props.options
         };
 
         return _this;
@@ -33,6 +34,17 @@ var App = function (_React$Component) {
             this.setState(function () {
                 return {
                     options: []
+                };
+            });
+        }
+    }, {
+        key: 'handleRemoveOption',
+        value: function handleRemoveOption(optionToRemove) {
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.filter(function (option) {
+                        return !(option === optionToRemove);
+                    })
                 };
             });
         }
@@ -64,7 +76,7 @@ var App = function (_React$Component) {
         key: 'render',
         value: function render() {
             var title = "Indecision";
-            var subTitle = "We'll make the decision for you";
+            var subTitle = "We'll choose for you";
 
             return React.createElement(
                 'section',
@@ -76,7 +88,8 @@ var App = function (_React$Component) {
                 }),
                 React.createElement(Options, {
                     options: this.state.options,
-                    handleClearOptions: this.handleClearOptions
+                    handleClearOptions: this.handleClearOptions,
+                    handleRemoveOption: this.handleRemoveOption
                 }),
                 React.createElement(AddOption, {
                     handleAddOption: this.handleAddOption,
@@ -90,6 +103,10 @@ var App = function (_React$Component) {
     return App;
 }(React.Component);
 
+App.defaultProps = {
+    options: []
+};
+
 var Header = function Header(props) {
     return React.createElement(
         'section',
@@ -99,12 +116,21 @@ var Header = function Header(props) {
             null,
             props.title
         ),
+        props.subTitle && React.createElement(
+            'h2',
+            null,
+            props.subTitle
+        ),
         React.createElement(
             'h2',
             null,
             props.subTitle
         )
     );
+};
+
+Header.defaultProps = {
+    title: 'Indecision'
 };
 
 var Action = function Action(props) {
@@ -122,18 +148,6 @@ var Action = function Action(props) {
     );
 };
 
-var Option = function Option(props) {
-    return React.createElement(
-        'section',
-        { className: 'Option' },
-        React.createElement(
-            'p',
-            null,
-            props.text
-        )
-    );
-};
-
 var Options = function Options(props) {
     return React.createElement(
         'section',
@@ -146,10 +160,35 @@ var Options = function Options(props) {
         props.options.map(function (option) {
             return React.createElement(
                 'div',
-                { key: option, tag: option },
-                React.createElement(Option, { text: option })
+                {
+                    key: option
+                },
+                React.createElement(Option, {
+                    text: option,
+                    handleRemoveOption: props.handleRemoveOption
+                })
             );
         })
+    );
+};
+
+var Option = function Option(props) {
+    return React.createElement(
+        'section',
+        { className: 'Option' },
+        React.createElement(
+            'p',
+            null,
+            props.text,
+            React.createElement(
+                'button',
+                {
+                    onClick: function onClick(e) {
+                        props.handleRemoveOption(props.text);
+                    } },
+                'Remove Option'
+            )
+        )
     );
 };
 
