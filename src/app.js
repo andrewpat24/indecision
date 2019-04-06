@@ -1,4 +1,72 @@
+class App extends React.Component {
+    constructor (props) {
+        super(props);
 
+        this.handleClearOptions = this.handleClearOptions.bind(this);
+        this.handlePickAction = this.handlePickAction.bind(this);
+        this.handleAddOption = this.handleAddOption.bind(this); 
+
+        this.state = {
+            options: []
+        }
+       
+    }
+
+    handleClearOptions () {
+        this.setState( () => {
+            return {
+                options: []
+            }
+        });
+    }
+
+    handlePickAction () {
+        const randInt = Math.floor((Math.random() * (this.state.options.length)));
+        const selectedOption = this.state.options[randInt];
+        alert(selectedOption);
+    }
+
+    handleAddOption (option) {
+        console.log(option);
+
+        if(!option) {
+            return 'Please enter valid text input.';
+        }
+        else if(this.state.options.indexOf(option) >= 0) {  
+            return 'You cannot add duplicate entries.';
+        }
+
+       this.setState( (prevState) => {
+            return {
+                options: prevState.options.concat(option)
+            }
+        } );
+    }
+
+    render() {
+        const title = "Indecision";
+        const subTitle = "We'll make the decision for you";
+
+        return (
+            <section className="App">
+                <Header title={title} subTitle={subTitle}/> 
+                <Action 
+                    hasOptions={!!this.state.options.length}
+                    handlePickAction={this.handlePickAction}
+                /> 
+                <Options 
+                    options={this.state.options}
+                    handleClearOptions={this.handleClearOptions}
+                /> 
+                <AddOption
+                    handleAddOption={this.handleAddOption}
+                    handleClearOptions={this.handleClearOptions}
+                    test={"test"}
+                /> 
+            </section>
+        )
+    }
+}
 
 class Header extends React.Component {
     render() {
@@ -12,20 +80,17 @@ class Header extends React.Component {
     }
 }
 
-class Action extends React.Component {
-    handlePick () {
-        alert('handle pick')
-    }
-
-    render () {
-        return (
-            <section className="Action">
-                <button onClick={this.handlePick}>
-                    What should I do? 
-                </button>
-            </section>
-        )
-    }
+const Action = (props) => {
+    return (
+        <section className="Action">
+            <button 
+                onClick={props.handlePickAction}
+                disabled={!props.hasOptions}
+            >
+                What should I do? 
+            </button>
+        </section>
+    )
 }
 
 class Option extends React.Component {
@@ -39,31 +104,25 @@ class Option extends React.Component {
 }
 
 class Options extends React.Component {
-    constructor (props) {
-        super(props);
-        this.handleClearOptions = this.handleClearOptions.bind(this);
-    }
 
     generateOptions () {
+
         const options = this.props.options; 
         const jsxOptions = options.map( (option) => {
-            return <Option key={option} text={option}/> 
+            return (
+            <div key={option} tag={option}>
+                <Option  text={option}/> 
+            </div> 
+            )
         } ); 
-
-
         return jsxOptions; 
-    }
 
-    handleClearOptions () {
-        console.log(this.props.options)
     }
 
     render() {
         return (
             <section className="Option">
-                Options:
-                {this.props.options.length}
-                <button onClick={this.handleClearOptions.bind(this)}>Clear Options</button>
+                <button onClick={this.props.handleClearOptions}>Clear Options</button>
                 {this.generateOptions()}
             </section>
         )
@@ -71,19 +130,37 @@ class Options extends React.Component {
 }
 
 class AddOption extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleAddOption = this.handleAddOption.bind(this);
+
+        this.state = {
+            error: undefined, 
+            thing: 'something'
+        }
+    }
+
     handleAddOption(e) {
+
         e.preventDefault(); 
         const option = e.target.elements.option.value.trim();
         e.target.elements.option.value = ''; 
-        if(!option) {
-            return alert('No text provided');
-        }
-        alert(option);
+
+        const err = this.props.handleAddOption(option);
+        console.log('error:', err);
+
+        this.setState( () => { 
+            return {
+                error: err
+            }
+        } );
+        
     }
 
     render() {
         return (
             <section className="AddOption">
+                {this.state.error && <p>{this.state.error}</p>}
                 <form onSubmit={this.handleAddOption}>
                     <input type="text" name="option"/>
                     <button>Add option</button>
@@ -93,26 +170,13 @@ class AddOption extends React.Component {
     }
 }
 
-class App extends React.Component {
-    render() {
-        const title = "Indecision";
-        const subTitle = "We'll make the decision for you";
-        const options = [
-            'Thing one', 
-            'Thing two', 
-            'Thing ten'
-        ];
-
-        return (
-            <section className="App">
-                <Header title={title} subTitle={subTitle}/> 
-                <Action /> 
-                <Options options={options}/> 
-                <AddOption /> 
-            </section>
-        )
-    }
-}
-
+const User = (props) => {
+    return (
+        <section className="User">
+            <p>Name: {props.name}</p>
+            <p>Age: {props.age}</p>
+        </section>
+    )
+};
 
 ReactDOM.render(<App />, document.getElementById('app'));
