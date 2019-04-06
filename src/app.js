@@ -68,16 +68,13 @@ class App extends React.Component {
     }
 }
 
-class Header extends React.Component {
-    render() {
-        return (
-            <section className="Header">
-               <h1>{this.props.title}</h1>
-               <h2>{this.props.subTitle}</h2>
-            </section>
-        );
-
-    }
+const Header = (props) => {
+    return (
+    <section className="Header">
+        <h1>{props.title}</h1>
+        <h2>{props.subTitle}</h2>
+     </section>
+    )
 }
 
 const Action = (props) => {
@@ -93,17 +90,19 @@ const Action = (props) => {
     )
 }
 
-class Option extends React.Component {
-    render() {
-        return (
-            <section className="Option">
-                <p>{this.props.text}</p>
-            </section>
-        )
-    }
+const Option = (props) => {
+    return (
+        <section className="Option">
+            <p>{props.text}</p>
+        </section>
+    )
 }
 
 class Options extends React.Component {
+    constructor(props) {
+        super(props); 
+        this.generateOptions = this.generateOptions.bind(this);
+    }
 
     generateOptions () {
 
@@ -169,14 +168,5 @@ class AddOption extends React.Component {
         )
     }
 }
-
-const User = (props) => {
-    return (
-        <section className="User">
-            <p>Name: {props.name}</p>
-            <p>Age: {props.age}</p>
-        </section>
-    )
-};
 
 ReactDOM.render(<App />, document.getElementById('app'));

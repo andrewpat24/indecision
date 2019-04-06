@@ -90,37 +90,22 @@ var App = function (_React$Component) {
     return App;
 }(React.Component);
 
-var Header = function (_React$Component2) {
-    _inherits(Header, _React$Component2);
-
-    function Header() {
-        _classCallCheck(this, Header);
-
-        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-    }
-
-    _createClass(Header, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'section',
-                { className: 'Header' },
-                React.createElement(
-                    'h1',
-                    null,
-                    this.props.title
-                ),
-                React.createElement(
-                    'h2',
-                    null,
-                    this.props.subTitle
-                )
-            );
-        }
-    }]);
-
-    return Header;
-}(React.Component);
+var Header = function Header(props) {
+    return React.createElement(
+        'section',
+        { className: 'Header' },
+        React.createElement(
+            'h1',
+            null,
+            props.title
+        ),
+        React.createElement(
+            'h2',
+            null,
+            props.subTitle
+        )
+    );
+};
 
 var Action = function Action(props) {
     return React.createElement(
@@ -137,40 +122,28 @@ var Action = function Action(props) {
     );
 };
 
-var Option = function (_React$Component3) {
-    _inherits(Option, _React$Component3);
+var Option = function Option(props) {
+    return React.createElement(
+        'section',
+        { className: 'Option' },
+        React.createElement(
+            'p',
+            null,
+            props.text
+        )
+    );
+};
 
-    function Option() {
-        _classCallCheck(this, Option);
+var Options = function (_React$Component2) {
+    _inherits(Options, _React$Component2);
 
-        return _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).apply(this, arguments));
-    }
-
-    _createClass(Option, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'section',
-                { className: 'Option' },
-                React.createElement(
-                    'p',
-                    null,
-                    this.props.text
-                )
-            );
-        }
-    }]);
-
-    return Option;
-}(React.Component);
-
-var Options = function (_React$Component4) {
-    _inherits(Options, _React$Component4);
-
-    function Options() {
+    function Options(props) {
         _classCallCheck(this, Options);
 
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
+        var _this2 = _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).call(this, props));
+
+        _this2.generateOptions = _this2.generateOptions.bind(_this2);
+        return _this2;
     }
 
     _createClass(Options, [{
@@ -206,21 +179,21 @@ var Options = function (_React$Component4) {
     return Options;
 }(React.Component);
 
-var AddOption = function (_React$Component5) {
-    _inherits(AddOption, _React$Component5);
+var AddOption = function (_React$Component3) {
+    _inherits(AddOption, _React$Component3);
 
     function AddOption(props) {
         _classCallCheck(this, AddOption);
 
-        var _this5 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
+        var _this3 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
 
-        _this5.handleAddOption = _this5.handleAddOption.bind(_this5);
+        _this3.handleAddOption = _this3.handleAddOption.bind(_this3);
 
-        _this5.state = {
+        _this3.state = {
             error: undefined,
             thing: 'something'
         };
-        return _this5;
+        return _this3;
     }
 
     _createClass(AddOption, [{
@@ -267,24 +240,5 @@ var AddOption = function (_React$Component5) {
 
     return AddOption;
 }(React.Component);
-
-var User = function User(props) {
-    return React.createElement(
-        'section',
-        { className: 'User' },
-        React.createElement(
-            'p',
-            null,
-            'Name: ',
-            props.name
-        ),
-        React.createElement(
-            'p',
-            null,
-            'Age: ',
-            props.age
-        )
-    );
-};
 
 ReactDOM.render(React.createElement(App, null), document.getElementById('app'));
