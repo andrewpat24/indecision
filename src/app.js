@@ -98,35 +98,22 @@ const Option = (props) => {
     )
 }
 
-class Options extends React.Component {
-    constructor(props) {
-        super(props); 
-        this.generateOptions = this.generateOptions.bind(this);
-    }
+const Options = (props) => {
+    return (
+        <section className="Option">
+            <button onClick={props.handleClearOptions}>Clear Options</button>
 
-    generateOptions () {
-
-        const options = this.props.options; 
-        const jsxOptions = options.map( (option) => {
+            {props.options.map((option) => { 
             return (
-            <div key={option} tag={option}>
-                <Option  text={option}/> 
-            </div> 
-            )
-        } ); 
-        return jsxOptions; 
+                <div key={option} tag={option}>
+                    <Option  text={option}/> 
+                </div> 
+            ) } ) }
 
-    }
-
-    render() {
-        return (
-            <section className="Option">
-                <button onClick={this.props.handleClearOptions}>Clear Options</button>
-                {this.generateOptions()}
-            </section>
-        )
-    }
+        </section>
+    )
 }
+
 
 class AddOption extends React.Component {
     constructor(props) {
