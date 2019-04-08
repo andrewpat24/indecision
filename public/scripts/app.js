@@ -31,12 +31,26 @@ var App = function (_React$Component) {
     _createClass(App, [{
         key: 'componentDidMount',
         value: function componentDidMount() {
-            console.log('Component did mount!');
+            try {
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+
+                if (options) this.setState(function () {
+                    return {
+                        options: options
+                    };
+                });
+            } catch (e) {
+                console.log("error:", e);
+            }
         }
     }, {
         key: 'componentDidUpdate',
         value: function componentDidUpdate(prevProps, prevState) {
-            console.log('Component did update!');
+            if (prevState.options.length !== this.state.options.length) {
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem('options', json);
+            }
         }
     }, {
         key: 'componentWillUnmount',
@@ -167,6 +181,11 @@ var Options = function Options(props) {
             { onClick: props.handleClearOptions },
             'Clear Options'
         ),
+        props.options.length === 0 && React.createElement(
+            'p',
+            null,
+            'Please add an option to get started'
+        ),
         props.options.map(function (option) {
             return React.createElement(
                 'div',
@@ -225,7 +244,6 @@ var AddOption = function (_React$Component2) {
 
             e.preventDefault();
             var option = e.target.elements.option.value.trim();
-            e.target.elements.option.value = '';
 
             var err = this.props.handleAddOption(option);
             this.setState(function () {
@@ -233,6 +251,10 @@ var AddOption = function (_React$Component2) {
                     error: err
                 };
             });
+
+            if (!err) {
+                e.target.elements.option.value = '';
+            }
         }
     }, {
         key: 'render',

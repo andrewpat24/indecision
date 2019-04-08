@@ -14,11 +14,27 @@ class App extends React.Component {
     }
 
     componentDidMount () {
-        console.log('Component did mount!');
+        try {   
+            const json = localStorage.getItem('options');
+            const options = JSON.parse(json);
+
+            if(options)
+                this.setState( () => {
+                    return {
+                        options
+                    }
+                });
+        } catch (e) {
+            console.log("error:", e);
+        }
+        
     }
 
     componentDidUpdate (prevProps, prevState) {
-        console.log('Component did update!');
+        if(prevState.options.length !== this.state.options.length) {
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json)
+        }
     }
 
     componentWillUnmount () {
@@ -118,6 +134,7 @@ const Options = (props) => {
     return (
         <section className="Option">
             <button onClick={props.handleClearOptions}>Clear Options</button>
+            {props.options.length === 0 && <p>Please add an option to get started</p>}
 
             {props.options.map((option) => (
                 <div 
@@ -165,12 +182,16 @@ class AddOption extends React.Component {
 
         e.preventDefault(); 
         const option = e.target.elements.option.value.trim();
-        e.target.elements.option.value = ''; 
+        
 
         const err = this.props.handleAddOption(option);
         this.setState( () => ({ 
             error: err
         }) );
+
+        if(!err) {
+            e.target.elements.option.value = ''; 
+        }
         
     }
 
