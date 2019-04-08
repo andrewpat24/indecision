@@ -2,10 +2,12 @@
   "name": "indecision-app",
   "version": "1.0.0",
   "description": "A client side webapp to solve user indecision",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1", 
-    "dev": "concurrently \"live-server public\" \"babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch\"", 
+    "server": "live-server public",
+    "build": "webpack --watch",
+    "build-babel": "babel src/app.js --out-file=public/scripts/app.js --presets=env,react --watch",
+    "dev": "concurrently \"npm run server\" \"npm run build\" ",
     "prototype": "concurrently \"live-server public\" \"babel src/playground/prototype.js --out-file=public/scripts/app.js --presets=env,react --watch\""
   },
   "repository": {
@@ -19,7 +21,11 @@
   },
   "homepage": "https://github.com/andrewpat24/indecision#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.5.2",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "concurrently": "^4.1.0",
+    "live-server": "^1.2.1",
+    "webpack": "^3.1.0"
   }
 }
