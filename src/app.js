@@ -13,6 +13,18 @@ class App extends React.Component {
        
     }
 
+    componentDidMount () {
+        console.log('Component did mount!');
+    }
+
+    componentDidUpdate (prevProps, prevState) {
+        console.log('Component did update!');
+    }
+
+    componentWillUnmount () {
+        console.log('Component will unmount')
+    }
+
     handleClearOptions () {
         this.setState( () => ({ 
             options: [] 
@@ -21,10 +33,8 @@ class App extends React.Component {
 
     handleRemoveOption (optionToRemove) {
         this.setState((prevState) => ({
-            options: prevState.options.filter((option) => {
-                return !(option === optionToRemove); 
-            })
-        }))
+            options: prevState.options.filter((option) => option !== optionToRemove)
+        }));
     }
 
     handlePickAction () {
@@ -83,7 +93,6 @@ const Header = (props) => {
     <section className="Header">
         <h1>{props.title}</h1>
         {props.subTitle && <h2>{props.subTitle}</h2>}
-        <h2>{props.subTitle}</h2>
      </section>
     )
 }
@@ -159,8 +168,6 @@ class AddOption extends React.Component {
         e.target.elements.option.value = ''; 
 
         const err = this.props.handleAddOption(option);
-        console.log('error:', err);
-
         this.setState( () => ({ 
             error: err
         }) );

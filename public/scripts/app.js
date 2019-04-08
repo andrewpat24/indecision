@@ -29,6 +29,21 @@ var App = function (_React$Component) {
     }
 
     _createClass(App, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log('Component did mount!');
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            console.log('Component did update!');
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            console.log('Component will unmount');
+        }
+    }, {
         key: 'handleClearOptions',
         value: function handleClearOptions() {
             this.setState(function () {
@@ -43,7 +58,7 @@ var App = function (_React$Component) {
             this.setState(function (prevState) {
                 return {
                     options: prevState.options.filter(function (option) {
-                        return !(option === optionToRemove);
+                        return option !== optionToRemove;
                     })
                 };
             });
@@ -117,11 +132,6 @@ var Header = function Header(props) {
             props.title
         ),
         props.subTitle && React.createElement(
-            'h2',
-            null,
-            props.subTitle
-        ),
-        React.createElement(
             'h2',
             null,
             props.subTitle
@@ -218,8 +228,6 @@ var AddOption = function (_React$Component2) {
             e.target.elements.option.value = '';
 
             var err = this.props.handleAddOption(option);
-            console.log('error:', err);
-
             this.setState(function () {
                 return {
                     error: err
