@@ -22,6 +22,8 @@
   "homepage": "https://github.com/andrewpat24/indecision#readme",
   "dependencies": {
     "babel-cli": "^6.26.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
     "babel-preset-env": "^1.5.2",
     "babel-preset-react": "^6.24.1",
     "concurrently": "^4.1.0",
