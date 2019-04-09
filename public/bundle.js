@@ -1017,8 +1017,6 @@ if (process.env.NODE_ENV === 'production') {
 "use strict";
 
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
 var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
@@ -1027,161 +1025,14 @@ var _reactDom = __webpack_require__(19);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _Options = __webpack_require__(37);
+var _AppComponent = __webpack_require__(40);
 
-var _Options2 = _interopRequireDefault(_Options);
-
-var _AddOption = __webpack_require__(35);
-
-var _AddOption2 = _interopRequireDefault(_AddOption);
-
-var _Action = __webpack_require__(38);
-
-var _Action2 = _interopRequireDefault(_Action);
-
-var _Header = __webpack_require__(39);
-
-var _Header2 = _interopRequireDefault(_Header);
+var _AppComponent2 = _interopRequireDefault(_AppComponent);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+_reactDom2.default.render(_react2.default.createElement(_AppComponent2.default, null), document.getElementById('app'));
 // Components
-
-
-var App = function (_React$Component) {
-    _inherits(App, _React$Component);
-
-    function App(props) {
-        _classCallCheck(this, App);
-
-        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
-
-        _this.handleClearOptions = _this.handleClearOptions.bind(_this);
-        _this.handlePickAction = _this.handlePickAction.bind(_this);
-        _this.handleAddOption = _this.handleAddOption.bind(_this);
-        _this.handleRemoveOption = _this.handleRemoveOption.bind(_this);
-
-        _this.state = {
-            options: props.options
-        };
-
-        return _this;
-    }
-
-    _createClass(App, [{
-        key: 'componentDidMount',
-        value: function componentDidMount() {
-            try {
-                var json = localStorage.getItem('options');
-                var options = JSON.parse(json);
-
-                if (options) this.setState(function () {
-                    return {
-                        options: options
-                    };
-                });
-            } catch (e) {
-                console.log("error:", e);
-            }
-        }
-    }, {
-        key: 'componentDidUpdate',
-        value: function componentDidUpdate(prevProps, prevState) {
-            if (prevState.options.length !== this.state.options.length) {
-                var json = JSON.stringify(this.state.options);
-                localStorage.setItem('options', json);
-            }
-        }
-    }, {
-        key: 'componentWillUnmount',
-        value: function componentWillUnmount() {
-            console.log('Component will unmount');
-        }
-    }, {
-        key: 'handleClearOptions',
-        value: function handleClearOptions() {
-            this.setState(function () {
-                return {
-                    options: []
-                };
-            });
-        }
-    }, {
-        key: 'handleRemoveOption',
-        value: function handleRemoveOption(optionToRemove) {
-            this.setState(function (prevState) {
-                return {
-                    options: prevState.options.filter(function (option) {
-                        return option !== optionToRemove;
-                    })
-                };
-            });
-        }
-    }, {
-        key: 'handlePickAction',
-        value: function handlePickAction() {
-            var randInt = Math.floor(Math.random() * this.state.options.length);
-            var selectedOption = this.state.options[randInt];
-            alert(selectedOption);
-        }
-    }, {
-        key: 'handleAddOption',
-        value: function handleAddOption(option) {
-            console.log(option);
-
-            if (!option) {
-                return 'Please enter valid text input.';
-            } else if (this.state.options.indexOf(option) >= 0) {
-                return 'You cannot add duplicate entries.';
-            }
-
-            this.setState(function (prevState) {
-                return {
-                    options: prevState.options.concat(option)
-                };
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            var title = "Indecision";
-            var subTitle = "We'll choose for you";
-
-            return _react2.default.createElement(
-                'section',
-                { className: 'App' },
-                _react2.default.createElement(_Header2.default, { title: title, subTitle: subTitle }),
-                _react2.default.createElement(_Action2.default, {
-                    hasOptions: !!this.state.options.length,
-                    handlePickAction: this.handlePickAction
-                }),
-                _react2.default.createElement(_Options2.default, {
-                    options: this.state.options,
-                    handleClearOptions: this.handleClearOptions,
-                    handleRemoveOption: this.handleRemoveOption
-                }),
-                _react2.default.createElement(_AddOption2.default, {
-                    handleAddOption: this.handleAddOption,
-                    handleClearOptions: this.handleClearOptions,
-                    test: "test"
-                })
-            );
-        }
-    }]);
-
-    return App;
-}(_react2.default.Component);
-
-App.defaultProps = {
-    options: []
-};
-
-_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('app'));
 
 /***/ }),
 /* 17 */
@@ -21939,6 +21790,179 @@ Header.defaultProps = {
 };
 
 exports.default = Header;
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Options = __webpack_require__(37);
+
+var _Options2 = _interopRequireDefault(_Options);
+
+var _AddOption = __webpack_require__(35);
+
+var _AddOption2 = _interopRequireDefault(_AddOption);
+
+var _Action = __webpack_require__(38);
+
+var _Action2 = _interopRequireDefault(_Action);
+
+var _Header = __webpack_require__(39);
+
+var _Header2 = _interopRequireDefault(_Header);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+// Components 
+
+
+var App = function (_React$Component) {
+    _inherits(App, _React$Component);
+
+    function App(props) {
+        _classCallCheck(this, App);
+
+        var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
+
+        _this.handleClearOptions = _this.handleClearOptions.bind(_this);
+        _this.handlePickAction = _this.handlePickAction.bind(_this);
+        _this.handleAddOption = _this.handleAddOption.bind(_this);
+        _this.handleRemoveOption = _this.handleRemoveOption.bind(_this);
+
+        _this.state = {
+            options: props.options
+        };
+
+        return _this;
+    }
+
+    _createClass(App, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            try {
+                var json = localStorage.getItem('options');
+                var options = JSON.parse(json);
+
+                if (options) this.setState(function () {
+                    return {
+                        options: options
+                    };
+                });
+            } catch (e) {
+                console.log("error:", e);
+            }
+        }
+    }, {
+        key: 'componentDidUpdate',
+        value: function componentDidUpdate(prevProps, prevState) {
+            if (prevState.options.length !== this.state.options.length) {
+                var json = JSON.stringify(this.state.options);
+                localStorage.setItem('options', json);
+            }
+        }
+    }, {
+        key: 'componentWillUnmount',
+        value: function componentWillUnmount() {
+            console.log('Component will unmount');
+        }
+    }, {
+        key: 'handleClearOptions',
+        value: function handleClearOptions() {
+            this.setState(function () {
+                return {
+                    options: []
+                };
+            });
+        }
+    }, {
+        key: 'handleRemoveOption',
+        value: function handleRemoveOption(optionToRemove) {
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.filter(function (option) {
+                        return option !== optionToRemove;
+                    })
+                };
+            });
+        }
+    }, {
+        key: 'handlePickAction',
+        value: function handlePickAction() {
+            var randInt = Math.floor(Math.random() * this.state.options.length);
+            var selectedOption = this.state.options[randInt];
+            alert(selectedOption);
+        }
+    }, {
+        key: 'handleAddOption',
+        value: function handleAddOption(option) {
+            console.log(option);
+
+            if (!option) {
+                return 'Please enter valid text input.';
+            } else if (this.state.options.indexOf(option) >= 0) {
+                return 'You cannot add duplicate entries.';
+            }
+
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.concat(option)
+                };
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var title = "Indecision";
+            var subTitle = "We'll choose for you";
+
+            return _react2.default.createElement(
+                'section',
+                { className: 'App' },
+                _react2.default.createElement(_Header2.default, { title: title, subTitle: subTitle }),
+                _react2.default.createElement(_Action2.default, {
+                    hasOptions: !!this.state.options.length,
+                    handlePickAction: this.handlePickAction
+                }),
+                _react2.default.createElement(_Options2.default, {
+                    options: this.state.options,
+                    handleClearOptions: this.handleClearOptions,
+                    handleRemoveOption: this.handleRemoveOption
+                }),
+                _react2.default.createElement(_AddOption2.default, {
+                    handleAddOption: this.handleAddOption,
+                    handleClearOptions: this.handleClearOptions,
+                    test: "test"
+                })
+            );
+        }
+    }]);
+
+    return App;
+}(_react2.default.Component);
+
+App.defaultProps = {
+    options: []
+};
+
+exports.default = App;
 
 /***/ })
 /******/ ]);
