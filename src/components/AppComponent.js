@@ -6,19 +6,45 @@ import Action from './Action';
 import Header from './Header';
 
 class App extends React.Component {
-    constructor (props) {
-        super(props);
 
-        this.handleClearOptions = this.handleClearOptions.bind(this);
-        this.handlePickAction = this.handlePickAction.bind(this);
-        this.handleAddOption = this.handleAddOption.bind(this); 
-        this.handleRemoveOption = this.handleRemoveOption.bind(this);
-
-        this.state = {
-            options: props.options
-        }
-       
+    state = {
+        options: this.props.options
     }
+
+
+    handleClearOptions = () => {
+        this.setState( () => ({ 
+            options: [] 
+        } ) );
+    }
+
+    handleRemoveOption = (optionToRemove) => {
+        this.setState((prevState) => ({
+            options: prevState.options.filter((option) => option !== optionToRemove)
+        }));
+    }
+
+    handlePickAction = () => {
+        const randInt = Math.floor((Math.random() * (this.state.options.length)));
+        const selectedOption = this.state.options[randInt];
+        alert(selectedOption);
+    }
+
+    handleAddOption = (option) => {
+        console.log(option);
+
+        if(!option) {
+            return 'Please enter valid text input.';
+        }
+        else if(this.state.options.indexOf(option) >= 0) {  
+            return 'You cannot add duplicate entries.';
+        }
+
+       this.setState( (prevState) => ({
+            options: prevState.options.concat(option)
+        }) );
+    }
+
 
     componentDidMount () {
         try {   
@@ -42,43 +68,6 @@ class App extends React.Component {
             const json = JSON.stringify(this.state.options);
             localStorage.setItem('options', json)
         }
-    }
-
-    componentWillUnmount () {
-        console.log('Component will unmount')
-    }
-
-    handleClearOptions () {
-        this.setState( () => ({ 
-            options: [] 
-        } ) );
-    }
-
-    handleRemoveOption (optionToRemove) {
-        this.setState((prevState) => ({
-            options: prevState.options.filter((option) => option !== optionToRemove)
-        }));
-    }
-
-    handlePickAction () {
-        const randInt = Math.floor((Math.random() * (this.state.options.length)));
-        const selectedOption = this.state.options[randInt];
-        alert(selectedOption);
-    }
-
-    handleAddOption (option) {
-        console.log(option);
-
-        if(!option) {
-            return 'Please enter valid text input.';
-        }
-        else if(this.state.options.indexOf(option) >= 0) {  
-            return 'You cannot add duplicate entries.';
-        }
-
-       this.setState( (prevState) => ({
-            options: prevState.options.concat(option)
-        }) );
     }
 
     render() {
