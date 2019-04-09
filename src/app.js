@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // Components
+import Options from './components/Options';
 import AddOption from './components/AddOption';
-import Option from './components/Option';
+import Action from './components/Action';
+import Header from './components/Header';
 
 class App extends React.Component {
     constructor (props) {
@@ -108,53 +110,6 @@ class App extends React.Component {
 
 App.defaultProps = {
     options: []
-}
-
-const Header = (props) => {
-    return (
-    <section className="Header">
-        <h1>{props.title}</h1>
-        {props.subTitle && <h2>{props.subTitle}</h2>}
-     </section>
-    )
-}
-
-Header.defaultProps = {
-    title: 'Indecision'
-}
-
-const Action = (props) => {
-    return (
-        <section className="Action">
-            <button 
-                onClick={props.handlePickAction}
-                disabled={!props.hasOptions}
-            >
-                What should I do? 
-            </button>
-        </section>
-    )
-}
-
-const Options = (props) => {
-    return (
-        <section className="Option">
-            <button onClick={props.handleClearOptions}>Clear Options</button>
-            {props.options.length === 0 && <p>Please add an option to get started</p>}
-
-            {props.options.map((option) => (
-                <div 
-                    key={option}
-                >
-                    <Option 
-                        text={option}
-                        handleRemoveOption={props.handleRemoveOption}
-                    /> 
-                </div> 
-            ) ) }
-
-        </section>
-    )
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
