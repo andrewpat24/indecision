@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 // Components
-import AddOption from './components/AddOption'
+import AddOption from './components/AddOption';
+import Option from './components/Option';
 
 class App extends React.Component {
     constructor (props) {
@@ -152,22 +153,6 @@ const Options = (props) => {
                 </div> 
             ) ) }
 
-        </section>
-    )
-}
-
-const Option = (props) => {
-    return (
-        <section className="Option">
-            <p>
-                {props.text}
-                <button 
-                    onClick={(e) => {
-                        props.handleRemoveOption(props.text)
-                    }}>
-                    Remove Option
-                </button>
-            </p>
         </section>
     )
 }
