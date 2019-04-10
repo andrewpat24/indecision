@@ -13,7 +13,7 @@ const OptionModal = (props) => {
             <h4>{props.selectedOption}</h4>
             <button onClick={props.handleCloseModal}>Close</button>
         </Modal>
-    )
+    );
 }
 
 export default OptionModal; 
