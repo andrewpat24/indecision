@@ -90,20 +90,22 @@ class App extends React.Component {
         return (
             <section className="App">
                 <Header title={title} subTitle={subTitle}/> 
-                <Action 
-                    hasOptions={!!this.state.options.length}
-                    handlePickAction={this.handlePickAction}
-                /> 
-                <Options 
-                    options={this.state.options}
-                    handleClearOptions={this.handleClearOptions}
-                    handleRemoveOption={this.handleRemoveOption}
-                /> 
-                <AddOption
-                    handleAddOption={this.handleAddOption}
-                    handleClearOptions={this.handleClearOptions}
-                    test={"test"}
-                /> 
+                    <div className="container">
+                        <Action 
+                            hasOptions={!!this.state.options.length}
+                            handlePickAction={this.handlePickAction}
+                        /> 
+                        <Options 
+                            options={this.state.options}
+                            handleClearOptions={this.handleClearOptions}
+                            handleRemoveOption={this.handleRemoveOption}
+                        /> 
+                        <AddOption
+                            handleAddOption={this.handleAddOption}
+                            handleClearOptions={this.handleClearOptions}
+                            test={"test"}
+                        /> 
+                    </div>
                 <OptionModal 
                     selectedOption={this.state.selectedOption}
                     handleCloseModal={this.handleCloseModal}
