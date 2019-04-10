@@ -95,16 +95,18 @@ class App extends React.Component {
                             hasOptions={!!this.state.options.length}
                             handlePickAction={this.handlePickAction}
                         /> 
-                        <Options 
-                            options={this.state.options}
-                            handleClearOptions={this.handleClearOptions}
-                            handleRemoveOption={this.handleRemoveOption}
-                        /> 
-                        <AddOption
-                            handleAddOption={this.handleAddOption}
-                            handleClearOptions={this.handleClearOptions}
-                            test={"test"}
-                        /> 
+                        <div className="widget">
+                            <Options 
+                                options={this.state.options}
+                                handleClearOptions={this.handleClearOptions}
+                                handleRemoveOption={this.handleRemoveOption}
+                            /> 
+                            <AddOption
+                                handleAddOption={this.handleAddOption}
+                                handleClearOptions={this.handleClearOptions}
+                                test={"test"}
+                            /> 
+                        </div>
                     </div>
                 <OptionModal 
                     selectedOption={this.state.selectedOption}

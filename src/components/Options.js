@@ -4,14 +4,17 @@ import Option from './Option';
 
 const Options = (props) => {
     return (
-        <section className="Option">
-            <button 
-            className="button button--link"
-            onClick={props.handleClearOptions}
-            >
-                Clear Options
-            </button>
-            {props.options.length === 0 && <p>Please add an option to get started</p>}
+        <section component="Option">
+            <div className="widget-header">
+                <h3 className="widget-header__title">Your Options</h3>
+                <button 
+                className="button button--link"
+                onClick={props.handleClearOptions}
+                >
+                    Clear Options
+                </button>
+            </div>  
+            {props.options.length === 0 && <p className="widget__message">Please add an option to get started</p>}
 
             {props.options.map((option) => (
                 <div 
@@ -23,7 +26,7 @@ const Options = (props) => {
                     /> 
                 </div> 
             ) ) }
-
+            
         </section>
     )
 }
