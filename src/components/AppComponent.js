@@ -4,13 +4,14 @@ import Options from './Options';
 import AddOption from './AddOption';
 import Action from './Action';
 import Header from './Header';
+import OptionModal from './OptionModal';
 
 class App extends React.Component {
 
     state = {
-        options: this.props.options
+        options: this.props.options,
+        selectedOption: undefined
     }
-
 
     handleClearOptions = () => {
         this.setState( () => ({ 
@@ -27,7 +28,11 @@ class App extends React.Component {
     handlePickAction = () => {
         const randInt = Math.floor((Math.random() * (this.state.options.length)));
         const selectedOption = this.state.options[randInt];
-        alert(selectedOption);
+        this.setState(() => {
+            return {
+                selectedOption
+            }
+        });
     }
 
     handleAddOption = (option) => {
@@ -43,6 +48,14 @@ class App extends React.Component {
        this.setState( (prevState) => ({
             options: prevState.options.concat(option)
         }) );
+    }
+
+    handleCloseModal = () => {
+        this.setState( () => {
+            return {
+                selectedOption: undefined
+            }
+        } )
     }
 
 
@@ -90,6 +103,10 @@ class App extends React.Component {
                     handleAddOption={this.handleAddOption}
                     handleClearOptions={this.handleClearOptions}
                     test={"test"}
+                /> 
+                <OptionModal 
+                    selectedOption={this.state.selectedOption}
+                    handleCloseModal={this.handleCloseModal}
                 /> 
             </section>
         )
