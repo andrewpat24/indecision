@@ -21,3 +21,13 @@
     margin: $m-size 0 0 0; 
     padding: $m-size; 
 }
+
+@media (max-width: $mobile-breakpoint) {
+    .add-option {
+        flex-direction:column; 
+    }
+
+    .add-option__input {
+        margin: 0 0 $s-size 0; 
+    }
+}
