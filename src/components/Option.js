@@ -2,9 +2,11 @@ import React from 'react';
 
 const Option = (props) => {
     return (
-        <section className="Option">
-            <p>
-                {props.text}
+        <section component="Option">
+            <div className="option">
+                <p className="option__text">
+                    {props.count}. {props.text}
+                </p>
                 <button 
                     className="button button--link"
                     onClick={(e) => {
@@ -12,7 +14,7 @@ const Option = (props) => {
                     }}>
                     Remove Option
                 </button>
-            </p>
+            </div>
         </section>
     )
 }
